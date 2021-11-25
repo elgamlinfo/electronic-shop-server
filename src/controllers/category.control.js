@@ -43,8 +43,21 @@ let updateCategory = (req, res) => {
 /************end update category************/
 
 
+/*********************start delete category********************/
+let deleteCategory = (req, res) => {
+    Category.findOne({_id: req.params.id}, (err, categ) => {
+        if(err) return res.send(err);
+        if(!categ) return res.status(404).json({message: "category not found!"});
+        Category.findByIdAndDelete(req.params.id, (err, result) => {
+            if(err) return res.send(err);
+            res.json({message: "Deleted!"})
+        })
+    })
+}
+/*********************start delete category********************/
 
 module.exports = {
     addCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory
 }
