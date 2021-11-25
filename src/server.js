@@ -15,7 +15,8 @@ const port = process.env.PORT || 3000;
 
 /********start  required routers*******/
 const userRouter = require('./routes/user.route');
-const category = require('./routes/category.route');
+const categoryRouter = require('./routes/category.route');
+const cartRouter = require('./routes/cart.route');
 /********end  required routers*******/
 
 
@@ -37,7 +38,8 @@ app.use(session({
 
 /********start  use routers*******/
 app.use(userRouter)
-app.use(category)
+app.use(categoryRouter)
+app.use(cartRouter)
 /********end  use routers*******/
 
 /***********server listen************/

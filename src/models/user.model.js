@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         trim: true
     },
+    cartId: {
+        type:String,
+        trim: true
+    },
     tokens: [
 		{
 			token: {

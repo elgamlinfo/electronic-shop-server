@@ -8,7 +8,7 @@ const cartSchema = new mongoose.Schema({
     ProdIDs: [{
         type: String,
     }]
-})
+}, {timestamps: true})
 
 
 
