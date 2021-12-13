@@ -140,7 +140,7 @@ let userLogout = (req, res) => {
     user.tokens = user.tokens.filter(token => token.token != req.token)
     user.save().then(() => {
         res.clearCookie("access_token");
-        res.send("logout Success");
+        res.status(200).json({"message":"logout Success"})
     })
 }
 /************end user logout**********/
