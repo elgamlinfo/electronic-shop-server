@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const cloudinary = require('cloudinary').v2
 const sharp = require('sharp')
-
+const fs = require('fs');
 
 /************cloudinary config*************/
 cloudinary.config({
@@ -48,15 +48,17 @@ let userImgupload = async (req, res) => {
     try {
         let user = req.user;
         const newFileName = `${Date.now()}-${req.file.originalname}`;
+        const path  = `public/images/${newFileName}`;
         await sharp(req.file.buffer)
             .resize({ width: 600, height: 600 })
             .webp({
                 quality: 90,
-            }).toFile(`public/images/${newFileName}`);
-        await cloudinary.uploader.upload(`public/images/${newFileName}`,async function(error, result) {
+            }).toFile(path);
+        await cloudinary.uploader.upload(path,async function(error, result) {
             if (error) {
                 console.log(error);
             }
+            fs.unlinkSync(path)
             user.img  = result.url;
             user.save();
             res.send(user);
