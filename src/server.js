@@ -37,12 +37,15 @@ app.use(session({
 /*************end init app tools***********/
 
 
+
 /********start  use routers*******/
 app.use(userRouter)
 app.use(categoryRouter)
 app.use(cartRouter)
 app.use(productRouter)
 /********end  use routers*******/
+
+
 
 /***********server listen************/
 app.listen(port, () => console.log(`http://localhost:${port}`))
