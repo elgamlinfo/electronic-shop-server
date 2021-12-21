@@ -28,7 +28,7 @@ let addProduct = async (req, res) => {
         const files = req.files;
         let product = new Product(req.body);
         let images = [];
-
+        product.specifications = req.body.specifications.split("\n");
         for (const file of files) {
             const newFileName = `${Date.now()}-${file.originalname}`;
             const path = `public/images/${newFileName}`;
