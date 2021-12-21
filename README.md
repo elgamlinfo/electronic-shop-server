@@ -1,6 +1,16 @@
 # electronic-shop-server
 
+
+
 ## Ecommerce API With node.js
+
+### App Progress
+
+- [x] user handler
+- [x] category handler
+- [x] product handler
+- [ ] cart handler
+- [ ] orders handler
 
 ### Tools
 
