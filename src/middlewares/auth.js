@@ -6,11 +6,11 @@ function auth(req, res, next) {
         let accessToken =  req.cookies["access_token"].split(' ')[1];
         jwt.verify(accessToken, process.env.JWT_SECRET_KEY, (err, decoded) => {
             if(err){
-                return res.send(err);
+                return res.status(401).json({message: "Unauthorized!"});
             }
             User.findOne({_id: decoded._id, "tokens.token":accessToken}, (err, user) => {
                 if(!user){
-                    res.status('401').send('Unauthorized!')
+                    res.status(401).json({message: "Unauthorized!"});
                 }
                 req.user = user
                 req.token = accessToken
@@ -18,7 +18,7 @@ function auth(req, res, next) {
             })
         })
     } catch (error) {
-        res.status('401').send('Unauthorized!')
+        res.status(500).json(err);
     }
 }
 

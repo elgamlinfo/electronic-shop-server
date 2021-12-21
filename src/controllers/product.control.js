@@ -28,23 +28,23 @@ let addProduct = async (req, res) => {
         const files = req.files;
         let product = new Product(req.body);
         let images = [];
-        product.specifications = req.body.specifications.split("\n");
         for (const file of files) {
             const newFileName = `${Date.now()}-${file.originalname}`;
             const path = `public/images/${newFileName}`;
             await sharp(file.buffer)
-                .webp({
-                    quality: 40,
-                })
-                .toFile(path);
+            .webp({
+                quality: 40,
+            })
+            .toFile(path);
             const newPath = await cloudinaryImageUploadMethod(path);
             images.push(newPath.res);
             fs.unlinkSync(path);
         }
-
+        
+        product.specifications = req.body.specifications.split("\n");
         product.images = images;
         await product.save();
-        res.status(200).json(product);
+        res.status(201).json(product);
     } catch (error) {
         res.status(405).json({ error: "method not allowed!" });
     }
