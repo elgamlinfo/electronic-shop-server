@@ -11,7 +11,6 @@ const {
 const auth = require("../middlewares/auth");
 const multer = require("multer");
 
-
 ////***********init multer to upload images***********////
 const uploud = multer({
     fileFilter(req, file, cb) {

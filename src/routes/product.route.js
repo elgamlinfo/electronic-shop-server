@@ -1,9 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const {addProduct, deleteProduct, getProducts, getProductById} = require('../controllers/product.control');
+const {
+    addProduct,
+    deleteProduct,
+    getProducts,
+    getProductById,
+} = require("../controllers/product.control");
 const auth = require("../middlewares/auth");
 const multer = require("multer");
-
 
 ////***********init multer to upload images***********////
 const upload = multer({
@@ -16,19 +20,15 @@ const upload = multer({
 });
 
 /***************************add new product*******************************/
-router.post('/product/add', auth, upload.array('photos', 12), addProduct)
-
+router.post("/product/add", auth, upload.array("photos", 12), addProduct);
 
 /***************************get all products*******************************/
-router.get('/product/all', auth, getProducts)
-
+router.get("/product/all", auth, getProducts);
 
 /***************************get product by id*******************************/
-router.get('/product/:id', auth, getProductById)
-
+router.get("/product/:id", auth, getProductById);
 
 /*************************delete product***************************/
-router.delete('/product/:id', auth, deleteProduct)
-
+router.delete("/product/:id", auth, deleteProduct);
 
 module.exports = router;
