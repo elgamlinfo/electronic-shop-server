@@ -53,16 +53,43 @@ let addProduct = async (req, res) => {
 /****************** end add product ********************/
 
 
+/*******************start get products********************/
+let getProducts = (req, res) => {
+    Product.find({})
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(error => {
+        res.status(500).send(error);
+    })
+}
+/*******************end get products********************/
+
+
+
+/*******************start get product by id********************/
+let getProductById = (req, res) => {
+    Product.findById(req.params.id)
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(error => {
+        res.status(500).send(error);
+    })
+}
+/*******************end get product by id********************/
+
 
 /****************** start delete product ********************/
 let deleteProduct = (req, res) => {
     try {
         Product.findByIdAndDelete(req.params.id, (err, result) => {
-            if(err) return res.send(err);
-            res.send(result)
+            if(err) return res.json(err);
+            if(!result) return res.json({message: "Product Not Found!"});
+            res.send({message: "Deleted!"})
         })
     } catch (error) {
-        res.json(error)
+        res.json({message: "Product Not Found!"})
     }
 }
 /****************** end delete product ********************/
@@ -70,5 +97,7 @@ let deleteProduct = (req, res) => {
 
 module.exports = {
     addProduct,
+    getProducts,
+    getProductById,
     deleteProduct
 }
