@@ -34,6 +34,9 @@ const userSchema = new mongoose.Schema({
         type:String,
         trim: true
     },
+    admin: {
+        type: Boolean
+    },
     tokens: [
 		{
 			token: {
