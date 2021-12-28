@@ -5,6 +5,7 @@ const {
     userImgupload,
     userInfoUpdate,
     userLogin,
+    getUser,
     deleteUser,
     userLogout,
 } = require("../controllers/user.control");
@@ -32,6 +33,9 @@ router.patch("/user/info", auth, userInfoUpdate);
 
 /********************user login*********************/
 router.post("/user/login", userLogin);
+
+/********************get user*********************/
+router.get("/user", auth, getUser);
 
 /********************use delete profile*********************/
 router.delete("/user/delete", auth, deleteUser);

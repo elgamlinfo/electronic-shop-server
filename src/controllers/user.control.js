@@ -113,7 +113,7 @@ let userLogin =  (req, res) => {
                 //save token
                 user.save().then(() => {
                     res.cookie("access_token", `Bearer ${accessToken}`)
-                    res.json(user)
+                    res.json({user, token:accessToken})
                 });
                 return;
             }
@@ -123,7 +123,16 @@ let userLogin =  (req, res) => {
 }
 /************end user Login*************/
 
-
+/*******************start get user*********************/
+let getUser = (req, res) => {
+    try {
+        res.json(req.user);
+        
+    } catch (error) {
+        res.status(500).json({error})
+    }
+}
+/*******************end get user*********************/
 
 /************start deleting user**************/
 let deleteUser = (req, res) => {
@@ -141,7 +150,6 @@ let userLogout = (req, res) => {
     let user = req.user;
     user.tokens = user.tokens.filter(token => token.token != req.token)
     user.save().then(() => {
-        res.clearCookie("access_token");
         res.status(200).json({"message":"logout Success"})
     })
 }
@@ -153,6 +161,7 @@ module.exports = {
     userImgupload,
     userInfoUpdate,
     userLogin,
+    getUser,
     deleteUser,
     userLogout
 }
