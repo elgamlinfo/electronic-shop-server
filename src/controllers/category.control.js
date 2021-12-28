@@ -17,6 +17,16 @@ let addCategory = (req, res) => {
 }
 /************end add category************/
 
+/********************start get all categories********************/
+let getCategories = (req, res) => {
+    Category.find({}, (error, result) => {
+        if(error) res.send(error);
+        if(!result) res.status(404).json({error: "categories not found"})
+        res.json(result) 
+    })
+}
+/********************end get all categories********************/
+
 /************start  update category************/
 let updateCategory = (req, res) => {
     // console.log(req.param.id)
@@ -58,6 +68,7 @@ let deleteCategory = (req, res) => {
 
 module.exports = {
     addCategory,
+    getCategories,
     updateCategory,
     deleteCategory
 }
