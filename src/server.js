@@ -24,7 +24,10 @@ const productRouter = require('./routes/product.route');
 /*************start init app tools***********/
 app.use(helmet())
 app.use(morgan('tiny'))
-app.use(cors())
+app.use(cors({
+    origin: '*',
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}))
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(cookieParser())
