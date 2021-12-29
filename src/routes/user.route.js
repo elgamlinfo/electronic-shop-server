@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 const {
     userRegister,
+    adminRegister,
     userImgupload,
     userInfoUpdate,
     userLogin,
     getUser,
+    getUsers,
+    getAdmins,
     deleteUser,
     userLogout,
 } = require("../controllers/user.control");
@@ -25,6 +28,9 @@ const uploud = multer({
 /********************user register*********************/
 router.post("/user/register", userRegister);
 
+/********************user register*********************/
+router.post("/admin/register", auth, uploud.single("avatar"),adminRegister);
+
 /********************user image upload*********************/
 router.post("/user/img/upload", auth, uploud.single("avatar"), userImgupload);
 
@@ -37,8 +43,15 @@ router.post("/user/login", userLogin);
 /********************get user*********************/
 router.get("/user", auth, getUser);
 
+
+/********************get users*********************/
+router.get("/users", getUsers);
+
+/********************get user*********************/
+router.get("/Admins", auth,getAdmins);
+
 /********************use delete profile*********************/
-router.delete("/user/delete", auth, deleteUser);
+router.delete("/user/delete/:id", auth, deleteUser);
 
 /********************user logout*********************/
 router.post("/user/logout", auth, userLogout);

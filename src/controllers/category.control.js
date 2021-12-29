@@ -60,7 +60,7 @@ let deleteCategory = (req, res) => {
         if(!categ) return res.status(404).json({message: "category not found!"});
         Category.findByIdAndDelete(req.params.id, (err, result) => {
             if(err) return res.send(err);
-            res.json({message: "Deleted!"})
+            res.json(result)
         })
     })
 }

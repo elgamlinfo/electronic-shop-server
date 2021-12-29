@@ -30,7 +30,8 @@ let userRegister = (req, res) => {
             const userData = new User({ 
                 ...req.body,
                 _id: new mongoose.Types.ObjectId(),
-                password: hash
+                password: hash,
+                admin: false
             });
             //save user to db
             userData.save().then(() => {
@@ -40,6 +41,47 @@ let userRegister = (req, res) => {
     })
 }
 /************end user register*************/
+
+
+/************start admin register*************/
+let adminRegister =  (req, res) => {
+    if(!req.user.admin) return res.status(401).json({message: "admins permission needed"})
+    let imageUrl = '';
+    //find user
+    User.findOne({email: req.body.email},async(err, user) => {
+        if(user) {
+            return res.status(409).json({message: 'this email is registerd!'})
+        }
+        const newFileName = `${Date.now()}-${req.file.originalname}`;
+        const path  = `public/images/${newFileName}`;
+        await sharp(req.file.buffer)
+            .resize({ width: 600, height: 600 })
+            .webp({
+                quality: 90,
+            }).toFile(path);
+        await cloudinary.uploader.upload(path,async function(error, result) {
+            if(error) return res.send(error)
+            fs.unlinkSync(path)
+            imageUrl = result.url;
+        });
+        //hash password
+        bcrypt.hash(req.body.password, 10, (err, hash) => {
+            //create user
+            const userData = new User({ 
+                ...req.body,
+                _id: new mongoose.Types.ObjectId(),
+                password: hash,
+                admin: true,
+                img: imageUrl
+            });
+            //save user to db
+            userData.save().then(() => {
+                res.status(200).json(userData)
+            })
+        })
+    })
+}
+/************end admin register*************/
 
 
 
@@ -134,16 +176,47 @@ let getUser = (req, res) => {
 }
 /*******************end get user*********************/
 
+/*******************start get user*********************/
+let getUsers = (req, res) => {
+    try {
+        User.find({admin: false}, 'name email mobile img address _id',(error, users) => {
+            if(error) return res.status(500).json(error)
+            res.json(users) 
+        })
+    } catch (error) {
+        res.send(error)
+    }
+    
+}
+/*******************end get user*********************/
+
+/*******************start get user*********************/
+let getAdmins = (req, res) => {
+    try {
+        User.find({_id:{$ne: req.user._id},admin: true}, 'name email mobile img address _id',(error, users) => {
+            if(error) return res.status(500).json(error)
+            res.json(users) 
+        })
+    } catch (error) {
+        res.send(error)
+    }
+    
+}
+/*******************end get user*********************/
+
 /************start deleting user**************/
 let deleteUser = (req, res) => {
-    User.findByIdAndRemove(req.user._id, (err, user) => {
-        if(err) return res.send(err)
-        res.send(user);
-    })
+    try {
+        if(!req.user.admin) return res.status(401).json({message: "admins permission needed"})
+        User.findByIdAndRemove(req.params.id, (err, user) => {
+            if(err) return res.send(err)
+            res.json(user);
+        })
+    } catch (error) {
+        
+    }
 }
 /************end deleting user**************/
-
-
 
 /************start user logout**********/
 let userLogout = (req, res) => {
@@ -158,10 +231,13 @@ let userLogout = (req, res) => {
 
 module.exports = {
     userRegister,
+    adminRegister,
     userImgupload,
     userInfoUpdate,
     userLogin,
     getUser,
+    getUsers,
+    getAdmins,
     deleteUser,
     userLogout
 }
