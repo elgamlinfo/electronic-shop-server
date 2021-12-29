@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 /********end  required files*******/
 /*************start init app tools***********/
 app.use(cors({
-    origin: '*',
+    origin: 'https://electronic-shop-eta.vercel.app',
     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 }))
 
