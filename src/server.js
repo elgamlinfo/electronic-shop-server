@@ -11,7 +11,11 @@ const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const port = process.env.PORT || 3000;
 /********end  required files*******/
-
+/*************start init app tools***********/
+app.use(cors({
+    origin: '*',
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}))
 
 /********start  required routers*******/
 const userRouter = require('./routes/user.route');
@@ -21,11 +25,7 @@ const productRouter = require('./routes/product.route');
 /********end  required routers*******/
 
 
-/*************start init app tools***********/
-app.use(cors({
-    origin: '*',
-    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
-}))
+
 app.use(helmet())
 app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({extended:false}))
