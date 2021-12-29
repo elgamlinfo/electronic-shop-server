@@ -63,6 +63,17 @@ let getProducts = (req, res) => {
 };
 /*******************end get products********************/
 
+/*******************start get products count********************/
+let getProductsCount = async (req, res) => {
+    try {
+        let productCount = await Product.find({}).count();
+        res.json({count: productCount});
+    } catch (error) {
+        res.send(error)
+    }
+};
+/*******************end get products count********************/
+
 /*******************start get product by id********************/
 let getProductById = (req, res) => {
     Product.findById(req.params.id)
@@ -92,6 +103,7 @@ let deleteProduct = (req, res) => {
 module.exports = {
     addProduct,
     getProducts,
+    getProductsCount,
     getProductById,
     deleteProduct,
 };

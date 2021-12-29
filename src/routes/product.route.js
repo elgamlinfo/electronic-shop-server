@@ -4,6 +4,7 @@ const {
     addProduct,
     deleteProduct,
     getProducts,
+    getProductsCount,
     getProductById,
 } = require("../controllers/product.control");
 const auth = require("../middlewares/auth");
@@ -24,6 +25,9 @@ router.post("/product/add", auth, upload.array("photos", 12), addProduct);
 
 /***************************get all products*******************************/
 router.get("/product/all", auth, getProducts);
+
+/***************************get all products*******************************/
+router.get("/product/count", auth, getProductsCount);
 
 /***************************get product by id*******************************/
 router.get("/product/:id", auth, getProductById);
