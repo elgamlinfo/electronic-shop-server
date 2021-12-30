@@ -118,6 +118,7 @@ let userInfoUpdate = async(req, res) => {
     let validKeys = ["name", "email", "password", "mobile", "address"]
     let isValid = objKeys.every(key => validKeys.includes(key))
     let imgUrl=''
+    let pass=''
     if(!isValid) {
         return res.send('invalid credentials');
     }
@@ -139,13 +140,16 @@ let userInfoUpdate = async(req, res) => {
         });
     }
 
-    User.findById(req.user._id, (err, user) =>{
+    User.findById(req.user._id, async(err, user) =>{
         if(err) return res.send(err);
-
         objKeys.forEach((key) => {
             user[key] = req.body[key];
         });
         if(imgUrl !== '') user.img = imgUrl
+        
+        if(req.body.password){
+            user.password = await bcrypt.hash(req.body.password, 10)
+        }
         user.save()
         .then((userData) => {
             res.send(userData);
@@ -179,7 +183,7 @@ let userLogin =  (req, res) => {
                 });
                 return;
             }
-            res.status(203).json({message: 'password not match!'})
+            res.status(400).json({message: 'password not match!'})
         });
     })
 }
