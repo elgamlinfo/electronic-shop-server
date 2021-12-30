@@ -113,19 +113,39 @@ let userImgupload = async (req, res) => {
 
 
 /************start update user information*************/
-let userInfoUpdate = (req, res) => {
+let userInfoUpdate = async(req, res) => {
     let objKeys = Object.keys(req.body);
     let validKeys = ["name", "email", "password", "mobile", "address"]
     let isValid = objKeys.every(key => validKeys.includes(key))
+    let imgUrl=''
     if(!isValid) {
         return res.send('invalid credentials');
     }
+
+    if(req.file){
+        const newFileName = `${Date.now()}-${req.file.originalname}`;
+        const path  = `public/images/${newFileName}`;
+        await sharp(req.file.buffer)
+            .resize({ width: 600, height: 600 })
+            .webp({
+                quality: 90,
+            }).toFile(path);
+        await cloudinary.uploader.upload(path,async function(error, result) {
+            if (error) {
+                console.log(error);
+            }
+            fs.unlinkSync(path)
+            imgUrl = result.url;
+        });
+    }
+
     User.findById(req.user._id, (err, user) =>{
         if(err) return res.send(err);
 
         objKeys.forEach((key) => {
             user[key] = req.body[key];
         });
+        if(imgUrl !== '') user.img = imgUrl
         user.save()
         .then((userData) => {
             res.send(userData);

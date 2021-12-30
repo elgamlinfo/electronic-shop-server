@@ -35,7 +35,7 @@ router.post("/admin/register", auth, uploud.single("avatar"),adminRegister);
 router.post("/user/img/upload", auth, uploud.single("avatar"), userImgupload);
 
 /********************user update information*********************/
-router.patch("/user/info", auth, userInfoUpdate);
+router.patch("/user/info", auth, uploud.single("avatar"), userInfoUpdate);
 
 /********************user login*********************/
 router.post("/user/login", userLogin);
