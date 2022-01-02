@@ -45,7 +45,7 @@ router.get("/user", auth, getUser);
 
 
 /********************get users*********************/
-router.get("/users", getUsers);
+router.get("/users", auth, getUsers);
 
 /********************get user*********************/
 router.get("/Admins", auth,getAdmins);
