@@ -30,7 +30,7 @@ router.get("/product/all", getProducts);
 router.get("/product/count", auth, getProductsCount);
 
 /***************************get product by id*******************************/
-router.get("/product/:id", auth, getProductById);
+router.get("/product/:id", getProductById);
 
 /*************************delete product***************************/
 router.delete("/product/:id", auth, deleteProduct);

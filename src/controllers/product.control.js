@@ -54,7 +54,7 @@ let addProduct = async (req, res) => {
 /*******************start get products********************/
 let getProducts = (req, res) => {
     const title = new RegExp(req.query.search, 'i');
-    Product.find({title})
+    Product.find({$or:[{title},{category: title}]})
         .then((result) => {
             res.status(200).json(result);
         })
