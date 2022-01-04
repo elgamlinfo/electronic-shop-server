@@ -6,6 +6,7 @@ const {
     getProducts,
     getProductsCount,
     getProductById,
+    searchProducts
 } = require("../controllers/product.control");
 const auth = require("../middlewares/auth");
 const multer = require("multer");
@@ -25,6 +26,9 @@ router.post("/product/add", auth, upload.array("photos", 12), addProduct);
 
 /***************************get all products*******************************/
 router.get("/product/all", getProducts);
+
+/***************************get all products*******************************/
+router.get("/product/search", searchProducts);
 
 /***************************get all products*******************************/
 router.get("/product/count", auth, getProductsCount);

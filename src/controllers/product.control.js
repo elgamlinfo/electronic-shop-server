@@ -64,6 +64,19 @@ let getProducts = (req, res) => {
 };
 /*******************end get products********************/
 
+/*******************start get products********************/
+let searchProducts = (req, res) => {
+    const title = new RegExp(req.query.search, 'i');
+    Product.find({$or:[{title},{category: title}], $limit:5}, 'title _id')
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((error) => {
+            res.status(500).send(error);
+        });
+};
+/*******************end get products********************/
+
 /*******************start get products count********************/
 let getProductsCount = async (req, res) => {
     try {
@@ -106,5 +119,6 @@ module.exports = {
     getProducts,
     getProductsCount,
     getProductById,
+    searchProducts,
     deleteProduct,
 };
