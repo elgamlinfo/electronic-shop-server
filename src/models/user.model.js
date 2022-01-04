@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     _id:{
-        type:String,
+        type: String,
         trim: true
     },
     name:{
@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
         trim: true
     },
     cartId: {
+        type:String,
+        trim: true
+    },
+    favouriteId: {
         type:String,
         trim: true
     },
