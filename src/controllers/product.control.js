@@ -67,7 +67,7 @@ let getProducts = (req, res) => {
 /*******************start get products********************/
 let searchProducts = (req, res) => {
     const title = new RegExp(req.query.search, 'i');
-    Product.find({$or:[{title},{category: title}], $limit:5}, 'title _id')
+    Product.find({$or:[{title},{category: title}]}, 'title _id').limit(5)
         .then((result) => {
             res.status(200).json(result);
         })
