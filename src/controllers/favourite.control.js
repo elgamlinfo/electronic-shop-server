@@ -49,7 +49,7 @@ let getFavourite = (req, res) => {
 let deletFromFav = (req, res) => {
     Favourite.findById(req.user.favouriteId, (err, favourite) =>{
         if(err) res.status(401).json({error: err.message});
-        favourite.ProdIDs = favourite.ProdIDs.filter(id => id !== req.body.prodId)
+        favourite.ProdIDs = favourite.ProdIDs.filter(id => id !== req.params.id)
         favourite.save()
         .then(result => {
             res.json(result);

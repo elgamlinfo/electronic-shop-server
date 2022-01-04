@@ -11,7 +11,7 @@ router.post('/fav/add', auth, addFavourite)
 
 router.get('/fav', auth, getFavourite)
 
-router.delete('/fav', auth, deletFromFav)
+router.delete('/fav/:id', auth, deletFromFav)
 
 
 
