@@ -6,11 +6,11 @@ const cartSchema = new mongoose.Schema({
         required: true
     },
     qnt: {
-        type: String,
+        type: Number,
         required: true
     },
     totalPrice: {
-        type: String,
+        type: Number,
         required: true
     },
     products: [{
@@ -30,7 +30,7 @@ const cartSchema = new mongoose.Schema({
             required: true
         },
         qnt: {
-            type: String,
+            type: Number,
             required: true
         },
         price: {

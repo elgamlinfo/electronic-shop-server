@@ -11,10 +11,10 @@ let addCart = (req, res) => {
             user.cartId = cart._id;
             user.save();
             cart.save();
-            return res.send(cart)
+            return res.json(cart)
         }
         Cart.findByIdAndUpdate(user.cartId, req.body,(err, cartDoc) => {
-            if(err) return res.send(err)
+            if(err) return res.status(500).json(err)
             res.json(cartDoc);
         })
     })
@@ -23,7 +23,7 @@ let addCart = (req, res) => {
 
 
 let getUserCart = (req, res) => {
-    Cart.find({userId: req.user._id}, (err, cart) => {
+    Cart.findOne({userId: req.user._id}, (err, cart) => {
         if(err) return res.status(500).send(err)
         res.json(cart)
     })
