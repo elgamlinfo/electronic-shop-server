@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+var finalhandler = require('finalhandler')
 const serveStatic = require('serve-static')
 var http = require('http')
 const port = process.env.PORT || 3000;
