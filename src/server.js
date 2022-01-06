@@ -9,11 +9,30 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+const serveStatic = require('serve-static')
+var http = require('http')
 const port = process.env.PORT || 3000;
 /********end  required files*******/
+
+
 /*************start init app tools***********/
 app.use(cors())
 
+// Serve up public/ftp folder
+var serve = serveStatic('public/ftp', {
+    index: false,
+    setHeaders: setHeaders
+})
+
+// Create server
+var server = http.createServer(function onRequest (req, res) {
+    serve(req, res, finalhandler(req, res))
+})
+
+// Set header to force download
+function setHeaders (res, path) {
+    res.setHeader('Content-Disposition', contentDisposition(path))
+}
 
 /********start  required routers*******/
 const userRouter = require('./routes/user.route');
@@ -51,5 +70,5 @@ app.use(productRouter)
 
 
 /***********server listen************/
-app.listen(port, () => console.log(`http://localhost:${port}`))
+server.listen(port, () => console.log(`http://localhost:${port}`))
 /***********server listen************/
