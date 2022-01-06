@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 
 
 /*************start init app tools***********/
-app.use(cors())
+
 
 // Serve up public/ftp folder
 var serve = serveStatic('public/ftp', {
@@ -34,6 +34,7 @@ function setHeaders (res, path) {
     res.setHeader('Content-Disposition', contentDisposition(path))
 }
 
+app.use(cors())
 /********start  required routers*******/
 const userRouter = require('./routes/user.route');
 const categoryRouter = require('./routes/category.route');
