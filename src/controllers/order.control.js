@@ -27,7 +27,7 @@ let createOrder = (req, res) => {
         cart.save()
         order.save()
         .then(result => {
-            res.json(order)
+            res.json(result)
         })
         .catch(error => {
             res.status(500).json({error: error.message})
