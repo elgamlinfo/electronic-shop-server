@@ -40,7 +40,7 @@ app.use(session({
 /*************end init app tools***********/
 
 
-app.use(express.static('public', {
+/*app.use(express.static('public', {
     etag: true, // Just being explicit about the default.
     lastModified: true,  // Just being explicit about the default.
     setHeaders: (res, path) => {
@@ -54,7 +54,7 @@ app.use(express.static('public', {
         res.setHeader('Cache-Control', 'max-age=31536000');
       }
     },
-  }));
+  }));*/
 
 
 /********start  use routers*******/
