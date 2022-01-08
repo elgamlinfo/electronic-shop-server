@@ -53,6 +53,17 @@ let getOrders = (req, res) => {
 }
 /**********************end get  orders*******************/
 
+/**********************start get  orders*******************/
+let getAllOrders = (req, res) => {  
+    Order.find({}, (error, orders) => {
+        if(error) return res.status(500).json({error: error.message})
+        if(orders.length === 0) return res.status(404).json({message: "no orders"})
+        return res.json(orders);
+    })
+    
+}
+/**********************end get  orders*******************/
+
 
 /**************************start update orders status***************************/
 let updateOrders = (req, res) => {
@@ -76,5 +87,6 @@ let updateOrders = (req, res) => {
 module.exports = {
     createOrder,
     getOrders,
+    getAllOrders,
     updateOrders
 }
