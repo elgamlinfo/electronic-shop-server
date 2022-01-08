@@ -41,7 +41,7 @@ let getOrders = (req, res) => {
     if(req.user.admin) {
         Order.find({}, (error, orders) => {
             if(error) return res.status(500).json({error: error.message})
-            if(orders.length === 0) return res.status(404).json({message: "no orders"})
+            //if(orders.length === 0) return res.status(404).json({message: "no orders"})
             return res.json(orders);
         })
     }
