@@ -19,6 +19,7 @@ app.use(cors())
 const userRouter = require('./routes/user.route');
 const categoryRouter = require('./routes/category.route');
 const cartRouter = require('./routes/cart.route');
+const orderRouter = require('./routes/order.route');
 const favouriteRouter = require('./routes/favourite.route');
 const productRouter = require('./routes/product.route');
 /********end  required routers*******/
@@ -60,6 +61,7 @@ app.use(express.static('public', {
 app.use(userRouter)
 app.use(categoryRouter)
 app.use(cartRouter)
+app.use(orderRouter)
 app.use(favouriteRouter)
 app.use(productRouter)
 /********end  use routers*******/
