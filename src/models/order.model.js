@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
         required: true
     },
     deliveryDate: {
-        type: Date,
+        type: String,
         required: true
     }	
     ,
