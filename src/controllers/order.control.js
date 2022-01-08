@@ -11,7 +11,7 @@ let createOrder = (req, res) => {
     let date = new Intl.DateTimeFormat(['ban', 'id']).format(result);
 
     Cart.findById(req.user.cartId, (err, cart) => {
-        if(err) return res.status(500).json({error: err.message})
+        if(err) return console.log(err);
         if(cart.products.length === 0) return res.status(404).json({message: "cart empty"})
         let c = {...cart._doc}
         delete c._id
@@ -30,6 +30,7 @@ let createOrder = (req, res) => {
             res.json(result)
         })
         .catch(error => {
+            console.log(error);
             res.status(500).json({error: error.message})
         })
     })
