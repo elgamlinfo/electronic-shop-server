@@ -10,7 +10,7 @@ router.post('/order', auth, createOrder)
 router.get('/order', auth, getOrders)
 
 
-router.get('/order/all',  getAllOrders)
+router.get('/order/all',  auth, getAllOrders)
 
 
 router.patch('/order/:id', auth, updateOrders)
