@@ -55,7 +55,7 @@ let getOrders = (req, res) => {
 
 /**********************start get  orders*******************/
 let getAllOrders = (req, res) => {  
-    Order.find({}).sort({transit: 'asc', complelted: 'asc'}).exec((error, orders) => {
+    Order.find({}).sort({completed: 'asc', transit: 'asc'}).exec((error, orders) => {
         if(error) return res.status(500).json({error: error.message})
         if(orders.length === 0) return res.status(404).json({message: "no orders"})
         return res.json(orders);
