@@ -13,7 +13,7 @@ router.post("/category/add", auth, addCategory);
 
 
 /*************************add category***************************/
-router.get("/category", auth, getCategories);
+router.get("/category", getCategories);
 
 /*************************update category********************************/
 router.patch("/category/update/:id", auth, updateCategory);
