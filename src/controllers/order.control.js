@@ -55,12 +55,11 @@ let getOrders = (req, res) => {
 
 /**********************start get  orders*******************/
 let getAllOrders = (req, res) => {  
-    Order.find({}, (error, orders) => {
+    Order.find({}).sort({transit: 'asc', complelted: 'asc'}).exec((error, orders) => {
         if(error) return res.status(500).json({error: error.message})
         if(orders.length === 0) return res.status(404).json({message: "no orders"})
         return res.json(orders);
     })
-    
 }
 /**********************end get  orders*******************/
 
