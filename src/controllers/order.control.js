@@ -84,9 +84,19 @@ let updateOrders = (req, res) => {
 }
 /**************************end update orders status***************************/
 
+
+let deleteOrder = (req, res) => {
+    Order.findByIdAndDelete(req.params.id, (error, order) => {
+        if(error) return res.status(500).json(error);
+        res.json({message:'order deleted'})
+    })
+}
+
+
 module.exports = {
     createOrder,
     getOrders,
     getAllOrders,
-    updateOrders
+    updateOrders,
+    deleteOrder
 }

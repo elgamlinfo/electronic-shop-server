@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {createOrder, getOrders, getAllOrders, updateOrders} = require('../controllers/order.control')
+const {createOrder, getOrders, getAllOrders, updateOrders, deleteOrder} = require('../controllers/order.control')
 const auth = require('../middlewares/auth')
 
 
@@ -14,6 +14,8 @@ router.get('/order/all', auth, getAllOrders)
 
 
 router.patch('/order/:id', auth, updateOrders)
+
+router.delete('/order/:id', auth, deleteOrder)
 
 
 module.exports = router
